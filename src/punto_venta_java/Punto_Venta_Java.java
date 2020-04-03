@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
@@ -62,6 +63,7 @@ public class Punto_Venta_Java extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         introducirDatos = new javax.swing.JTextPane();
         totallabel = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 204, 102));
@@ -100,6 +102,13 @@ public class Punto_Venta_Java extends javax.swing.JFrame {
         totallabel.setForeground(new java.awt.Color(255, 255, 255));
         totallabel.setText("Total = ");
 
+        jButton1.setText("Imprimir Total");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,7 +120,9 @@ public class Punto_Venta_Java extends javax.swing.JFrame {
                     .addComponent(jScrollPane2))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(222, 222, 222)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(totallabel, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
@@ -121,7 +132,9 @@ public class Punto_Venta_Java extends javax.swing.JFrame {
                 .addGap(100, 100, 100)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(totallabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(totallabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(75, 75, 75))
@@ -189,9 +202,9 @@ public class Punto_Venta_Java extends javax.swing.JFrame {
 
         } else if (evt.VK_ESCAPE == evt.getKeyCode()) {
             try {
-                
+
                 DefaultTableModel modelo = (DefaultTableModel) table.getModel();
-                String temp =table.getValueAt(table.getRowCount()-1, 3).toString();
+                String temp = table.getValueAt(table.getRowCount() - 1, 3).toString();
                 total -= Double.parseDouble(temp);
                 totallabel.setText("Total = " + total);
                 modelo.removeRow(table.getRowCount() - 1);
@@ -207,6 +220,22 @@ public class Punto_Venta_Java extends javax.swing.JFrame {
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_formKeyPressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        //JOptionPane.showMessageDialog(this, "¿Seguro que desea terminar?");
+        int input = JOptionPane.showConfirmDialog(this, "¿Seguro que desea terminar?", null,
+                 JOptionPane.YES_NO_OPTION);
+        if (input == 0) {
+            DefaultTableModel modelo = (DefaultTableModel) table.getModel();
+            int rows = modelo.getRowCount();
+            
+            for (int i = 0; i < rows; i++) {
+                    System.out.println(modelo.getValueAt(i, 1)+"\t"+ modelo.getValueAt(i, 3));
+            }
+            System.out.println("TOTAL: "+total);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -309,6 +338,7 @@ public class Punto_Venta_Java extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextPane introducirDatos;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable table;
